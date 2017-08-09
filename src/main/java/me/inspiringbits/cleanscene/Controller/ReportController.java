@@ -24,4 +24,11 @@ public class ReportController {
     Report getReportById(@PathVariable Integer id){
         return reportMapper.selectById(id);
     }
+
+    @RequestMapping("hello")
+    public String hello(){
+        return "Hello";
+    }
+
+
 }
