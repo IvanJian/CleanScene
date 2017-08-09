@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.inspiringbits.cleanscene.Mapper.ReportMapper">
     <select id="selectById" resultType="Report">
-        select * from report where reportId = #{id}
+        select * from report where reportId = #{reportId}
     </select>
 </mapper>
