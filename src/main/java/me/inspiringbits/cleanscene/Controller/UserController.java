@@ -1,6 +1,5 @@
 package me.inspiringbits.cleanscene.Controller;
 
-import me.inspiringbits.cleanscene.Mapper.ReportMapper;
 import me.inspiringbits.cleanscene.Mapper.UserMapper;
 import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Model.User;
@@ -13,19 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by IvanJian on 2017/8/9.
  */
 @RestController
-public class ReportController {
+public class UserController {
 
-    final ReportMapper reportMapper;
     final UserMapper userMapper;
 
-    public ReportController(ReportMapper reportMapper, UserMapper userMapper) {
-        this.reportMapper = reportMapper;
+    public UserController(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
-    @RequestMapping("/report/{id}")
+    @RequestMapping("/user/{id}")
     public @ResponseBody
-    Report getReportById(@PathVariable Integer id) {
-        return reportMapper.selectById(id);
+    User getUserByID(@PathVariable Integer id) {
+        return userMapper.selectByUserId(id);
     }
+
+    @RequestMapping("hello")
+    public String hello(){
+        return "Hello";
+    }
+
 }

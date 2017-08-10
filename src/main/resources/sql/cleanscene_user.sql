@@ -24,8 +24,15 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `UserId` int(11) NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(45) NOT NULL,
   `FName` varchar(45) DEFAULT NULL,
   `LName` varchar(45) DEFAULT NULL,
+  `PhoneNumber` int(11) DEFAULT NULL,
+  `Password` int (15) NOT NULL,
+  `Address` varchar(80) DEFAULT NULL,
+  `DateOfBirth` date DEFAULT NULL,
+  `Email` varchar(80) DEFAULT NULL,
+  `DateJoined` date DEFAULT NULL,
   PRIMARY KEY (`UserId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,7 +43,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Yifan','Jian'),(2,'Lichen','Wu');
+INSERT INTO `user` VALUES (1,'Ivan','Yifan','Jian',004433,
+1234,'Clayton 123','11-11-1990','ivan@test.com','10-09-2017');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
