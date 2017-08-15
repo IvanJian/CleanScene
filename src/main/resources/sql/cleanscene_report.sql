@@ -23,9 +23,17 @@ DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `report` (
-  `reportId` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text,
-  `rating` varchar(50) DEFAULT NULL,
+  `reportId` numeric(11) NOT NULL ,
+  `rating` varchar(10),
+  `source` varchar(50),
+  `type` varchar(10),
+  `Latitude` numeric(65),
+  `Longitude` numeric(65),
+  `description` varchar(80),
+  `photo` varchar(80),
+  `locationName` varchar(80),
+  `hasMoreDetail` bool,
+  `deviceId` varchar(10),
   `userId` int(11) DEFAULT NULL,
   PRIMARY KEY (`reportId`),
   KEY `report_user_fk_idx` (`userId`),
@@ -39,7 +47,6 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,'this is report 0','low',1),(2,'this is report 2','high',1),(3,'this is report 4','low',1),(4,'this is report 5','high',2);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
