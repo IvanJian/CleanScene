@@ -7,6 +7,8 @@ import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Model.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
+
+import java.security.Timestamp;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
@@ -20,7 +22,7 @@ public class ReportController {
 
     final ReportMapper reportMapper;
     final UserMapper userMapper;
-    BasicMessage basicMessage;
+    BasicMessage basicMessage = new BasicMessage();
 
     public ReportController(ReportMapper reportMapper, UserMapper userMapper) {
         this.reportMapper = reportMapper;
@@ -40,19 +42,19 @@ public class ReportController {
         return reports;
     }
 
-    @RequestMapping(value = "/report/create")
-    public @ResponseBody
-    BasicMessage createReport(@RequestBody Report report)
-    {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        report.setTime(sdf.toString());
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyy/MM/dd");
-        report.setDate(sdf1.toString());
+    @RequestMapping(value = "/testpost",method = RequestMethod.POST)
+    @ResponseBody
+    public BasicMessage testPost(@RequestBody Report report){
+       try {
+           String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+           report.setDate(timeStamp);
+           String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+           report.setTime(timeStamp2);
+       }catch(Exception e){}
         try {
             reportMapper.createReport(report.getReportId(),report.getRating(),report.getSource(),report.getType(),
                     report.getLatitude(),report.getLongitude(),report.getDescription(),report.getPhoto(),report.getLocationName(),
-                    report.hasMoreDetail(),report.getDeviceId(),null, report.getDate(),report.getTime());
+                    report.isHasMoreDetail(),report.getDeviceId(),null, report.getDate(),report.getTime());
             basicMessage.setCode("200");
             basicMessage.setContent("Report Submitted");
             basicMessage.setSuccess(true);
@@ -60,11 +62,12 @@ public class ReportController {
         catch (Exception e)
         {
             basicMessage.setCode("444");
-            basicMessage.setContent("Couldn't Submit Report");
+            basicMessage.setContent(e.getMessage());
             basicMessage.setSuccess(false);
             return basicMessage;
         }
         return basicMessage;
     }
+
 
 }
