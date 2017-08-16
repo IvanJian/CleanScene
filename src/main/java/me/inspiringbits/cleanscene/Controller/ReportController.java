@@ -57,13 +57,13 @@ public class ReportController {
                     report.isHasMoreDetail(),report.getDeviceId(),null, report.getDate(),report.getTime());
             basicMessage.setCode("200");
             basicMessage.setContent("Report Submitted");
-            basicMessage.setSuccess(true);
+            basicMessage.setStatus(true);
         }
         catch (Exception e)
         {
             basicMessage.setCode("444");
             basicMessage.setContent(e.getMessage());
-            basicMessage.setSuccess(false);
+            basicMessage.setStatus(false);
             return basicMessage;
         }
         return basicMessage;
