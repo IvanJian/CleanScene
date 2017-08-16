@@ -42,7 +42,7 @@ public class ReportController {
         return reports;
     }
 
-    @RequestMapping(value = "/testpost",method = RequestMethod.POST)
+    @RequestMapping(value = "/report/create",method = RequestMethod.POST)
     @ResponseBody
     public BasicMessage testPost(@RequestBody Report report){
        try {
