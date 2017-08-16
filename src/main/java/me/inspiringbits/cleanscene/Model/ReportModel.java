@@ -1,5 +1,7 @@
 package me.inspiringbits.cleanscene.Model;
 
+import java.util.Calendar;
+
 /**
  * Created by Ivan on 2017/8/12.
  */
@@ -16,7 +18,15 @@ public class ReportModel {
     private String locationName;
     private boolean hasMoreDetail;
     private String deviceId;
+    private Calendar uploadTime;
 
+    public Calendar getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(Calendar uploadTime) {
+        this.uploadTime = uploadTime;
+    }
 
     public ReportModel() {
     }
