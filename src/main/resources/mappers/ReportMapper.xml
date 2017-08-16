@@ -6,4 +6,13 @@
     <select id="selectById" resultType="Report">
         select * from report where reportId = #{reportId}
     </select>
+    <select id="selectAll" resultType="Report">
+        select * from report
+    </select>
+    <select id="createReport" parameterType="map" resultType="Report">
+        Insert INTO report VALUES (#{rid}, #{rating}, #{source},  #{type},
+                         #{lat}, #{longit}, #{description}, #{photo},
+                         #{locationName}, #{hasMore}, #{deviceId}, null,
+                         #{date}, #{time})
+    </select>
 </mapper>

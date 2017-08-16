@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by IvanJian on 2017/8/9.
+ * Created by Abdulkareem on 2017/8/9.
  */
 @RestController
 public class UserController {
@@ -25,6 +25,7 @@ public class UserController {
     User getUserByID(@PathVariable Integer id) {
         return userMapper.selectByUserId(id);
     }
+
 
     @RequestMapping("hello")
     public String hello(){

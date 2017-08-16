@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by IvanJian on 2017/8/7.
+ * Created by Abdulkareem on 2017/8/7.
  */
 public class User {
     public Integer userId;
