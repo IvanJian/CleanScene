@@ -3,10 +3,7 @@ package me.inspiringbits.cleanscene.Controller;
 import me.inspiringbits.cleanscene.Model.BasicMessage;
 import me.inspiringbits.cleanscene.Service.ReportService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
@@ -25,6 +22,7 @@ public class UploadingController {
     private ReportService reportService;
 
     @RequestMapping(value = "/upload/image",method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
+    @ResponseBody
     public BasicMessage uploadImg(@RequestBody BasicMessage msg){
         String encodedImage=msg.getContent();
         return reportService.saveEncodedImage(encodedImage);

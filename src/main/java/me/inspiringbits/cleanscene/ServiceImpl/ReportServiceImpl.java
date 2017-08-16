@@ -36,7 +36,11 @@ public class ReportServiceImpl implements ReportService {
             File outputfile = new File(path);
             writeBtesToFile(imageByte,outputfile);
             path="images/"+fileName;
-            return new BasicMessage("200",true,path);
+            BasicMessage basicMessage=new BasicMessage();
+            basicMessage.setCode("200");
+            basicMessage.setContent(path);
+            basicMessage.setStatus(true);
+            return basicMessage;
         } catch (IOException e) {
             e.printStackTrace();
             return new BasicMessage("400",false,"Error");
