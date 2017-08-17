@@ -1,23 +1,22 @@
 package me.inspiringbits.cleanscene.Model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by IvanJian on 2017/8/7.
+ * Created by Abdulkareem on 2017/8/7.
  */
 public class User {
     public Integer userId;
+    public String Username;
     public String FName;
     public String LName;
-    public List<Report> reports;
-
-    public List<Report> getReports() {
-        return reports;
-    }
-
-    public void setReports(List<Report> reports) {
-        this.reports = reports;
-    }
+    public Integer PhoneNumber;
+    public Integer  Password;
+    public String Address;
+    public String dateOfBirth;
+    public String Email;
+    public String DateJoined;
 
     public Integer getUserId() {
         return userId;

@@ -45,12 +45,12 @@ public class ReportController {
     @RequestMapping(value = "/report/create",method = RequestMethod.POST)
     @ResponseBody
     public BasicMessage testPost(@RequestBody Report report){
-        try {
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-            report.setDate(timeStamp);
-            String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
-            report.setTime(timeStamp2);
-        }catch(Exception e){}
+       try {
+           String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+           report.setDate(timeStamp);
+           String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+           report.setTime(timeStamp2);
+       }catch(Exception e){}
         try {
             reportMapper.createReport(report.getReportId(),report.getRating(),report.getSource(),report.getType(),
                     report.getLatitude(),report.getLongitude(),report.getDescription(),report.getPhoto(),report.getLocationName(),

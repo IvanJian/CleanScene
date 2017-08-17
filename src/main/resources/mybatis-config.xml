@@ -7,6 +7,7 @@
         <package name="me.inspiringbits.cleanscene.Model"/>
     </typeAliases>
     <mappers>
+        <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/ReportMapper.xml"/>
     </mappers>
 </configuration>
