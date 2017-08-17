@@ -130,6 +130,9 @@ public class ReportServiceImpl implements ReportService {
         if (report.isHasMoreDetail() != false || report.isHasMoreDetail() != true){
             return false;
         }
+        if (report.getRating() != "Low" || report.getRating() != "High"){
+            return false;
+        }
         return true;
     }
 
