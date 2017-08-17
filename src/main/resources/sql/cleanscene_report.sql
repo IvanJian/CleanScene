@@ -23,18 +23,20 @@ DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `report` (
-  `reportId` numeric(11) NOT NULL ,
+  `reportId` int NOT NULL AUTO_INCREMENT,
   `rating` varchar(10),
   `source` varchar(50),
   `type` varchar(10),
-  `Latitude` numeric(65),
-  `Longitude` numeric(65),
+  `Latitude` numeric(20,10),
+  `Longitude` numeric(20,10),
   `description` varchar(80),
   `photo` varchar(80),
   `locationName` varchar(80),
   `hasMoreDetail` bool,
   `deviceId` varchar(10),
   `userId` int(11) DEFAULT NULL,
+  `Date` date,
+  `Time` varchar(10),
   PRIMARY KEY (`reportId`),
   KEY `report_user_fk_idx` (`userId`),
   CONSTRAINT `report_user_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION

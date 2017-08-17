@@ -20,4 +20,3 @@ public interface ReportMapper {
                         @Param("deviceId") String deviceId, @Param("userId") Integer userId,
                         @Param("date") String date, @Param("time") String time);
 }
-
