@@ -30,7 +30,7 @@ CREATE TABLE `report` (
   `Latitude` numeric(20,10),
   `Longitude` numeric(20,10),
   `description` varchar(80),
-  `photo` varchar(80),
+  `photo` varchar(300),
   `locationName` varchar(80),
   `hasMoreDetail` bool,
   `deviceId` varchar(10),
