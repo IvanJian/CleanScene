@@ -78,51 +78,58 @@ public class ReportServiceImpl implements ReportService {
             basicMessage.setContent("Error, Please check your entries.");
             basicMessage.setStatus(false);
             return basicMessage;
-        }
-        double dist = 100;
-        int count = 0;
-        for (Location l : locations) {
-            if(l.getLat() != null && l.getLong()!= null) {
-                count ++;
-                if (dist > this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K')) {
-                    dist = this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K');
-                    if (dist <= 5) {
-                        report.setLocationName(l.getlName());
+        }else {
+            double dist = 100;
+            for (Location l : locations) {
+                if (l.getLat() != null && l.getLong() != null) {
+                    if (dist > this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K')) {
+                        dist = this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K');
+                        if (dist <= 5) {
+                            report.setLocationName(l.getlName());
+                        }
                     }
                 }
             }
-        }
-        try {
-            SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
-            //String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-            sdfd.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-            String timeStamp = sdfd.format(new java.util.Date());
-            report.setDate(timeStamp);
-            SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
-            sdft.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-            String timeStamp2 = sdft.format(new java.util.Date());
-            //String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
-            report.setTime(timeStamp2);
-        }catch(Exception e){}
-        try {
-            reportMapper.createReport(report.getReportId(),report.getRating(),report.getSource(),report.getType(),
-                    report.getLatitude(),report.getLongitude(),report.getDescription(),report.getPhoto(),report.getLocationName(),
-                    report.isHasMoreDetail(),report.getDeviceId(),null, report.getDate(),report.getTime());
-            basicMessage.setCode("200");
-            basicMessage.setContent(Integer.toString(report.getReportId()));
-            basicMessage.setStatus(true);
-        }
-        catch (Exception e)
-        {
-            basicMessage.setCode("444");
-            basicMessage.setContent(e.getMessage());
-            basicMessage.setStatus(false);
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
+                //String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+                sdfd.setTimeZone(TimeZone.getTimeZone("GMT+11"));
+                String timeStamp = sdfd.format(new java.util.Date());
+                report.setDate(timeStamp);
+                SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
+                sdft.setTimeZone(TimeZone.getTimeZone("GMT+11"));
+                String timeStamp2 = sdft.format(new java.util.Date());
+                //String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+                report.setTime(timeStamp2);
+            } catch (Exception e) {
+            }
+            try {
+                reportMapper.createReport(report.getReportId(), report.getRating(), report.getSource(), report.getType(),
+                        report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
+                        report.isHasMoreDetail(), report.getDeviceId(), null, report.getDate(), report.getTime());
+                basicMessage.setCode("200");
+                basicMessage.setContent(Integer.toString(report.getReportId()));
+                basicMessage.setStatus(true);
+            } catch (Exception e) {
+                basicMessage.setCode("444");
+                basicMessage.setContent(e.getMessage());
+                basicMessage.setStatus(false);
+                return basicMessage;
+            }
             return basicMessage;
         }
-        return basicMessage;
     }
 
     private boolean validate(Report report) {
+        if (report.getPhoto() == "" || report.getPhoto() == null){
+            return false;
+        }
+        if (report.getLongitude() == null || report.getLatitude() == null){
+            return false;
+        }
+        if (report.isHasMoreDetail() != false || report.isHasMoreDetail() != true){
+            return false;
+        }
         return true;
     }
 
