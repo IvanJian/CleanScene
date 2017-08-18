@@ -118,4 +118,8 @@ public class ReportModel {
     public void setHasMoreDetail(boolean hasMoreDetail) {
         this.hasMoreDetail = hasMoreDetail;
     }
+
+    public boolean isHasMoreDetail() {
+        return hasMoreDetail;
+    }
 }

@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -44,9 +44,8 @@ public class ReportServiceImpl implements ReportService {
     public BasicMessage saveEncodedImage(String encodedImage) {
         BufferedImage image = null;
         byte[] imageByte;
-        BASE64Decoder decoder = new BASE64Decoder();
         try {
-            imageByte = decoder.decodeBuffer(encodedImage);
+            imageByte = Base64.getMimeDecoder().decode(encodedImage);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
             bis.close();
