@@ -10,5 +10,6 @@
         <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/ReportMapper.xml"/>
         <mapper resource="mappers/LocationMapper.xml"/>
+        <mapper resource="mappers/VolunteerMapper.xml"></mapper>
     </mappers>
 </configuration>
