@@ -12,10 +12,9 @@
     <select id="createReport" parameterType="map" resultType="Report">
         Insert INTO report VALUES (#{rid}, #{rating}, #{source},  #{type},
                          #{lat}, #{longit}, #{description}, #{photo},
-                         #{locationName}, #{hasMore}, #{deviceId}, null,
+                         #{locationName}, #{hasMore}, #{deviceId}, #{userId},
                          #{date}, #{time})
     </select>
-
     <insert id="insertReport" parameterType="Report" useGeneratedKeys="true" keyProperty="report.reportId" keyColumn="reportId">
         Insert INTO report (rating, source,  type, latitude, longitude, description, photo, locationName, hasMoreDetail, deviceId, userId, date, time) VALUES ( #{rating}, #{source},  #{type},
         #{lat}, #{longit}, #{description}, #{photo},

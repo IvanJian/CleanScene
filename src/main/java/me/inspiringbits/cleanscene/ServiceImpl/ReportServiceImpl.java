@@ -19,6 +19,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by IvanJian on 2017/8/16.
@@ -77,7 +78,14 @@ public class ReportServiceImpl implements ReportService {
             basicMessage.setContent("Error, Please check your entries.");
             basicMessage.setStatus(false);
             return basicMessage;
-        }else {
+            }
+            if(!report.isHasMoreDetail())
+            {
+                report.setRating("N/A");
+                report.setSource("N/A");
+                report.setType("N/A");
+                report.setDescription("N/A");
+            }
             double dist = 100;
             for (Location l : locations) {
                 if (l.getLat() != null && l.getLong() != null) {
@@ -101,13 +109,17 @@ public class ReportServiceImpl implements ReportService {
                 //String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
                 report.setTime(timeStamp2);
             } catch (Exception e) {
+                basicMessage.setCode("444");
+                basicMessage.setContent("Error Collecting Server Time and Date.");
+                basicMessage.setStatus(false);
+                return basicMessage;
             }
             try {
-                reportMapper.createReport(report.getReportId(), report.getRating(), report.getSource(), report.getType(),
+                reportMapper.insertReport(report, report.getRating(), report.getSource(), report.getType(),
                         report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
                         report.isHasMoreDetail(), report.getDeviceId(), null, report.getDate(), report.getTime());
                 basicMessage.setCode("200");
-                basicMessage.setContent(Integer.toString(report.getReportId()));
+                basicMessage.setContent("Report ID: " + report.getReportId());
                 basicMessage.setStatus(true);
             } catch (Exception e) {
                 basicMessage.setCode("444");
@@ -116,7 +128,7 @@ public class ReportServiceImpl implements ReportService {
                 return basicMessage;
             }
             return basicMessage;
-        }
+
     }
 
     private boolean validate(Report report) {
@@ -126,12 +138,10 @@ public class ReportServiceImpl implements ReportService {
         if (report.getLongitude() == null || report.getLatitude() == null){
             return false;
         }
-        if (report.isHasMoreDetail() != false || report.isHasMoreDetail() != true){
+        if (report.isHasMoreDetail() != false && report.isHasMoreDetail() != true){
             return false;
         }
-        if (report.getRating() != "Low" || report.getRating() != "High"){
-            return false;
-        }
+
         return true;
     }
 

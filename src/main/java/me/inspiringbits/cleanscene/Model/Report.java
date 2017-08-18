@@ -9,15 +9,16 @@ public class Report
     private String rating;
     private String source;
     private String type;
-    private Double latitude;
-    private Double longitude;
+    private Double Latitude;
+    private Double Longitude;
     private String description;
     private String photo;
     private String locationName;
     private Boolean hasMoreDetail;
     private String deviceId;
-    private String date;
-    private String time;
+    private String userId;
+    private String Date;
+    private String Time;
 
 
 
@@ -64,6 +65,21 @@ public class Report
         this.type = type;
     }
 
+    public Double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        Latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        Longitude = longitude;
+    }
 
     public String getDescription() {
         return description;
@@ -96,36 +112,30 @@ public class Report
     public void setHasMoreDetail(Boolean hasMoreDetail) {
         this.hasMoreDetail = hasMoreDetail;
     }
-
-    public Double getLatitude() {
-        return latitude;
+    public String getDate()
+    {
+        return Date;
+    }
+    public void setDate(String ndate)
+    {
+        Date = ndate;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public String getTime()
+    {
+        return Time;
+    }
+    public void setTime(String ntime)
+    {
+        Time = ntime;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public String getuserId() {
+        return userId;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 }
