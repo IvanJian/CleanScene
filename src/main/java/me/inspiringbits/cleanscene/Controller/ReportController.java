@@ -52,15 +52,16 @@ public class ReportController {
            report.setTime(timeStamp2);
        }catch(Exception e){}
         try {
-            reportMapper.createReport(report.getReportId(),report.getRating(),report.getSource(),report.getType(),
+            reportMapper.insertReport(report,report.getRating(),report.getSource(),report.getType(),
                     report.getLatitude(),report.getLongitude(),report.getDescription(),report.getPhoto(),report.getLocationName(),
                     report.isHasMoreDetail(),report.getDeviceId(),null, report.getDate(),report.getTime());
             basicMessage.setCode("200");
-            basicMessage.setContent("Report Submitted");
+            basicMessage.setContent(report.getReportId().toString());
             basicMessage.setStatus(true);
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             basicMessage.setCode("444");
             basicMessage.setContent(e.getMessage());
             basicMessage.setStatus(false);

@@ -28,7 +28,7 @@ public class ReportServiceImpl implements ReportService {
             image = ImageIO.read(bis);
             bis.close();
             // write the image to a file
-            String path="images/";
+            String path="src/main/webapp/images/";
             String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
             int num= 10000 + (int)(Math.random() * (99999 - 10000));
             String fileName=timeStamp+num+".jpeg";
