@@ -8,7 +8,7 @@ import me.inspiringbits.cleanscene.Model.Location;
 import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Service.ReportService;
 import org.springframework.stereotype.Component;
-
+import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,6 +19,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by IvanJian on 2017/8/16.
@@ -50,7 +51,7 @@ public class ReportServiceImpl implements ReportService {
             image = ImageIO.read(bis);
             bis.close();
             // write the image to a file
-            String path="src/main/webapp/images/";
+            String path="/var/www/html/images/";
             String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
             int num= 10000 + (int)(Math.random() * (99999 - 10000));
             String fileName=timeStamp+num+".jpeg";
@@ -77,46 +78,59 @@ public class ReportServiceImpl implements ReportService {
             basicMessage.setContent("Error, Please check your entries.");
             basicMessage.setStatus(false);
             return basicMessage;
-        }else {
-            double dist = 100;
-            for (Location l : locations) {
-                if (l.getLat() != null && l.getLong() != null) {
-                    if (dist > this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K')) {
-                        dist = this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K');
-                        if (dist <= 5) {
-                            report.setLocationName(l.getlName());
-                        }
+        }
+        if(!report.isHasMoreDetail())
+        {
+            report.setRating("N/A");
+            report.setSource("N/A");
+            report.setType("N/A");
+            report.setDescription("N/A");
+        }
+        report.setLocationName("N/A");
+        double dist = 100;
+        for (Location l : locations) {
+            if (l.getLat() != null && l.getLong() != null) {
+                if (dist > this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K')) {
+                    dist = this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K');
+                    if (dist <= 5) {
+                        report.setLocationName(l.getlName());
                     }
                 }
             }
-            try {
-                SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
-                //String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-                sdfd.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-                String timeStamp = sdfd.format(new java.util.Date());
-                report.setDate(timeStamp);
-                SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
-                sdft.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-                String timeStamp2 = sdft.format(new java.util.Date());
-                //String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
-                report.setTime(timeStamp2);
-            } catch (Exception e) {
-            }
-            try {
-                reportMapper.createReport(report.getReportId(), report.getRating(), report.getSource(), report.getType(),
-                        report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
-                        report.isHasMoreDetail(), report.getDeviceId(), null, report.getDate(), report.getTime());
-                basicMessage.setCode("200");
-                basicMessage.setContent(Integer.toString(report.getReportId()));
-                basicMessage.setStatus(true);
-            } catch (Exception e) {
-                basicMessage.setCode("444");
-                basicMessage.setContent(e.getMessage());
-                basicMessage.setStatus(false);
-                return basicMessage;
-            }
+        }
+        try {
+            SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
+            //String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+            sdfd.setTimeZone(TimeZone.getTimeZone("GMT+10"));
+            String timeStamp = sdfd.format(new java.util.Date());
+            report.setDate(timeStamp);
+            SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
+            sdft.setTimeZone(TimeZone.getTimeZone("GMT+10"));
+            String timeStamp2 = sdft.format(new java.util.Date());
+            //String timeStamp2 = new SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+            report.setTime(timeStamp2);
+        } catch (Exception e) {
+            basicMessage.setCode("444");
+            basicMessage.setContent("Error Collecting Server Time and Date.");
+            basicMessage.setStatus(false);
             return basicMessage;
         }
+        try {
+            reportMapper.insertReport(report, report.getRating(), report.getSource(), report.getType(),
+                    report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
+                    report.isHasMoreDetail(), report.getDeviceId(), null, report.getDate(), report.getTime());
+            basicMessage.setCode("200");
+            basicMessage.setContent(report.getReportId().toString());
+            basicMessage.setStatus(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            basicMessage.setCode("444");
+            basicMessage.setContent(e.getMessage());
+            basicMessage.setStatus(false);
+            return basicMessage;
+        }
+        return basicMessage;
+
     }
 
     private boolean validate(Report report) {
@@ -126,12 +140,10 @@ public class ReportServiceImpl implements ReportService {
         if (report.getLongitude() == null || report.getLatitude() == null){
             return false;
         }
-        if (report.isHasMoreDetail() != false || report.isHasMoreDetail() != true){
+        if (report.isHasMoreDetail() != false && report.isHasMoreDetail() != true){
             return false;
         }
-        if (report.getRating() != "Low" || report.getRating() != "High"){
-            return false;
-        }
+
         return true;
     }
 

@@ -2,31 +2,49 @@ package me.inspiringbits.cleanscene.Model;
 
 public class Volunteer {
     private String vName;
-    private String Address;
-    private String Suburb;
+    private String address;
+    private String suburb;
+    private String zipcode;
 
-    public Volunteer()
-    {}
-    public Volunteer(String vName, String Address, String Suburb) {
-        this.vName = vName;
-        this.Address= Address;
-        this.Suburb = Suburb;
+    public Volunteer() {
     }
 
-    public String getlName() {
+    public Volunteer(String vName, String address, String suburb, String zipcode) {
+        this.vName = vName;
+        this.address = address;
+        this.suburb = suburb;
+        this.zipcode = zipcode;
+    }
+
+    public String getvName() {
         return vName;
     }
-    public String getAddress(){
-        return Address;
-    }
-    public String getSuburb(){ return Suburb; }
-    public void setlName(String vName){
+
+    public void setvName(String vName) {
         this.vName = vName;
     }
-    public void setAddress(String Address){
-        this.Address = Address;
+
+    public String getAddress() {
+        return address;
     }
-    public void setSuburb(String Suburb){
-        this.Suburb = Suburb;
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSuburb() {
+        return suburb;
+    }
+
+    public void setSuburb(String suburb) {
+        this.suburb = suburb;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 }
