@@ -16,30 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `report`
+-- Table structure for table `Locations`
 --
 
-DROP TABLE IF EXISTS `report`;
+DROP TABLE IF EXISTS `volunteerinfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `report` (
-  `reportId` int NOT NULL AUTO_INCREMENT,
-  `rating` varchar(10),
-  `source` varchar(50),
-  `type` varchar(10),
-  `Latitude` numeric(20,10),
-  `Longitude` numeric(20,10),
-  `description` varchar(80),
-  `photo` varchar(300),
-  `locationName` varchar(80),
-  `hasMoreDetail` bool,
-  `deviceId` varchar(10),
-  `userId` int(11) DEFAULT NULL,
-  `Date` date,
-  `Time` varchar(10),
-  PRIMARY KEY (`reportId`),
-  KEY `report_user_fk_idx` (`userId`),
-  CONSTRAINT `report_user_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `volunteerinfo` (
+  `vName` varchar(80) NOT NULL,
+  `Address` varchar(200),
+  `Suburb` varchar(80),
+  PRIMARY KEY (`vName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -47,9 +34,9 @@ CREATE TABLE `report` (
 -- Dumping data for table `report`
 --
 
-LOCK TABLES `report` WRITE;
-/*!40000 ALTER TABLE `report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `report` ENABLE KEYS */;
+LOCK TABLES `volunteerinfo` WRITE;
+/*!40000 ALTER TABLE `volunteerinfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `volunteerinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
