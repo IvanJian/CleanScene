@@ -92,7 +92,7 @@ public class ReportServiceImpl implements ReportService {
             if (l.getLat() != null && l.getLong() != null) {
                 if (dist > this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K')) {
                     dist = this.distance(report.getLatitude(), report.getLongitude(), l.getLat(), l.getLong(), 'K');
-                    if (dist <= 5) {
+                    if (dist <= 2) {
                         report.setLocationName(l.getlName());
                     }
                 }
