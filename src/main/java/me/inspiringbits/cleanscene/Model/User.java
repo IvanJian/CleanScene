@@ -7,38 +7,68 @@ import java.util.List;
  * Created by Abdulkareem on 2017/8/7.
  */
 public class User {
-    public Integer userId;
-    public String Username;
-    public String FName;
-    public String LName;
-    public Integer PhoneNumber;
-    public Integer  Password;
-    public String Address;
-    public String dateOfBirth;
-    public String Email;
-    public String DateJoined;
+    private Integer userId;
+    private String facebookId;
+    private String name;
+    private String email;
+    private String gender;
+    private String registerDate;
+    private String registerTime;
 
-    public Integer getUserId() {
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getFName() {
-        return FName;
+    public String getFacebookId() {
+        return facebookId;
     }
 
-    public void setFName(String FName) {
-        this.FName = FName;
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
-    public String getLName() {
-        return LName;
+    public String getName() {
+        return name;
     }
 
-    public void setLName(String LName) {
-        this.LName = LName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public String getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(String registerTime) {
+        this.registerTime = registerTime;
     }
 }
