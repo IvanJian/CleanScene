@@ -7,6 +7,8 @@ import java.util.List;
  */
 
 public class VolunteeringActivity {
+    public static final String STATUS_CLOSE = "close";
+    public static final String STATUS_OPEN="open";
     private Integer volunteeringActivityId;
     private Double latitude;
     private Double longitude;

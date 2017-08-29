@@ -12,4 +12,5 @@ public interface VolunteerActivityMapper {
     VolunteeringActivity getVolunteerActivityById(@Param("volunteeringActivityId") int volunteeringActivityId);
     void joinVolunteering(@Param("userId") int userId, @Param("volunteeringActivityId") int volunteeringActivityId);
     void dropOutFromActivity(@Param("userId") int userId, @Param("volunteeringActivityId") int volunteeringActivityId);
+    void createVolunteerActivity(VolunteeringActivity volunteeringActivity);
 }

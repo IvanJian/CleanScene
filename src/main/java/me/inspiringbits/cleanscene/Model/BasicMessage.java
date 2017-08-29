@@ -9,6 +9,7 @@ public class BasicMessage {
     public static final String SUCCESS ="200" ;
     public static final String JOIN_VOLUNTEERING_FAILED = "501";
     public static final String DROP_OUT_FAILED ="502" ;
+    public static final String ACTIVITY_CLOSED ="503" ;
     private String code;
     private boolean status;
     private String content;
