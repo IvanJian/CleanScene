@@ -3,7 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.inspiringbits.cleanscene.Mapper.UserMapper">
+
+    <resultMap id="simpleUser" type="User">
+        <id column="userId" property="userId"></id>
+        <result property="gender" column="gender" />
+        <result property="email" column="email" />
+        <result property="facebookId" column="facebookId" />
+        <result property="fullname" column="fullname" />
+    </resultMap>
+
     <select id="selectByUserId" resultType="User">
         select * from user where userId = #{userId}
+    </select>
+
+    <insert id="createUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId" keyColumn="userId">
+        INSERT INTO user
+        (email,
+        gender,
+        facebookId,
+        fullname)
+        VALUES
+        ( #{email},
+        #{gender},
+        #{facebookId},
+        #{fullname});
+    </insert>
+
+    <select id="findByFacebookId" resultType="User">
+        SELECT * FROM user
+        WHERE facebookId=#{facebookId}
     </select>
 </mapper>

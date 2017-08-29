@@ -5,6 +5,10 @@ package me.inspiringbits.cleanscene.Model;
  */
 
 public class BasicMessage {
+    public static final String NO_FACEBOOK_ID = "300";
+    public static final String SUCCESS ="200" ;
+    public static final String JOIN_VOLUNTEERING_FAILED = "501";
+    public static final String DROP_OUT_FAILED ="502" ;
     private String code;
     private boolean status;
     private String content;

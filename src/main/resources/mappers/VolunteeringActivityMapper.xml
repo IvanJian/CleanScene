@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper">
+
+    <resultMap id="simpleVolunteerActivityResult" type="VolunteeringActivity">
+        <id column="volunteeringActivityId" property="volunteeringActivityId"></id>
+        <result property="latitude" column="latitude" />
+        <result property="longitude" column="longitude" />
+        <result property="createdDate" column="createdDate" />
+        <result property="createdTime" column="createdTime" />
+        <result property="address" column="address" />
+        <result property="activityDate" column="activityDate" />
+        <result property="fromTime" column="fromTime" />
+        <result property="toTime" column="toTime" />
+        <result property="isPrivate" column="isPrivate" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <resultMap id="volunteerActivityResult" type="VolunteeringActivity" extends="simpleVolunteerActivityResult">
+        <collection property="members" resultMap="me.inspiringbits.cleanscene.Mapper.UserMapper.simpleUser"></collection>
+    </resultMap>
+
+    <select id="getVolunteerActivityById" resultMap="volunteerActivityResult">
+        select *
+        from CLEANSCENE.volunteeringActivity
+            left join CLEANSCENE.VolunteeringMember
+                on CLEANSCENE.volunteeringActivity.volunteeringActivityId=CLEANSCENE.VolunteeringMember.volunteeringActivityId
+            left join user
+                on CLEANSCENE.VolunteeringMember.userId=CLEANSCENE.user.userId
+        where CLEANSCENE.volunteeringActivity.volunteeringActivityId=#{volunteeringActivityId};
+    </select>
+
+    <insert id="createVolunteerActivity" parameterType="VolunteeringActivity" useGeneratedKeys="true" keyColumn="volunteeringActivityId" keyProperty="volunteeringActivityId">
+      INSERT INTO CLEANSCENE.volunteeringActivity
+        (
+            latitude,
+            longitude,
+            createdDate,
+            createdTime,
+            address,
+            activityDate,
+            fromTime,
+            toTime,
+            isPrivate,
+            status)
+        VALUES
+        (
+            #{latitude},
+            #{longitude},
+            #{createdDate},
+            #{createdTime},
+            #{address},
+            #{activityDate},
+            #{fromTime},
+            #{toTime},
+            #{isPrivate},
+            #{status}
+        );
+    </insert>
+
+    <insert id="joinVolunteering">
+          INSERT INTO `CLEANSCENE`.`VolunteeringMember`
+            (`userId`,
+            `volunteeringActivityId`)
+            VALUES
+            (#{userId},
+            #{volunteeringActivityId});
+    </insert>
+
+    <delete id="dropOutFromActivity">
+        DELETE FROM `CLEANSCENE`.`VolunteeringMember`
+        WHERE userId=#{userId} AND volunteeringActivityId=#{volunteeringActivityId}
+    </delete>
+</mapper>

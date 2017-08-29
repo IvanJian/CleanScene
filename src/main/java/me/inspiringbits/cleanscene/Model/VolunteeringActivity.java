@@ -10,16 +10,14 @@ public class VolunteeringActivity {
     private Integer volunteeringActivityId;
     private Double latitude;
     private Double longitude;
-    private String meetingPoint;
+    private String address;
     private String createdDate;
     private String createdTime;
     private String activityDate;
     private String fromTime;
     private String toTime;
-    private String description;
     private Boolean isPrivate;
     private List<User> members;
-    private User createdBy;
     private String status;
 
     public Integer getVolunteeringActivityId() {
@@ -46,12 +44,12 @@ public class VolunteeringActivity {
         this.longitude = longitude;
     }
 
-    public String getMeetingPoint() {
-        return meetingPoint;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMeetingPoint(String meetingPoint) {
-        this.meetingPoint = meetingPoint;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCreatedDate() {
@@ -94,19 +92,7 @@ public class VolunteeringActivity {
         this.toTime = toTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Boolean getPrivate() {
-        return isPrivate;
-    }
-
-    public Boolean isPrivate() {
         return isPrivate;
     }
 
@@ -120,14 +106,6 @@ public class VolunteeringActivity {
 
     public void setMembers(List<User> members) {
         this.members = members;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
     }
 
     public String getStatus() {

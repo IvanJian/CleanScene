@@ -1,12 +1,13 @@
 package me.inspiringbits.cleanscene.Controller;
 
 import me.inspiringbits.cleanscene.Mapper.UserMapper;
+import me.inspiringbits.cleanscene.Model.BasicMessage;
 import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Model.User;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import me.inspiringbits.cleanscene.Service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * Created by Abdulkareem on 2017/8/9.
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     final UserMapper userMapper;
+    UserService userService;
 
-    public UserController(UserMapper userMapper) {
+    public UserController(UserMapper userMapper, UserService userService) {
         this.userMapper = userMapper;
+        this.userService = userService;
     }
 
     @RequestMapping("/user/{id}")
@@ -32,4 +35,9 @@ public class UserController {
         return "Hello";
     }
 
+    @RequestMapping(value = "user/create", method = RequestMethod.POST)
+    public @ResponseBody
+    BasicMessage createUser(@RequestBody User user){
+        return userService.createUser(user);
+    }
 }

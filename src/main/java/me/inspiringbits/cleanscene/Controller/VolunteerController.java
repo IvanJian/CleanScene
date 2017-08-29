@@ -1,12 +1,12 @@
 package me.inspiringbits.cleanscene.Controller;
 
+import me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper;
 import me.inspiringbits.cleanscene.Mapper.VolunteerMapper;
-import me.inspiringbits.cleanscene.Model.Report;
+import me.inspiringbits.cleanscene.Model.BasicMessage;
 import me.inspiringbits.cleanscene.Model.Volunteer;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
+import me.inspiringbits.cleanscene.Service.VolunteerService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +17,13 @@ import java.util.List;
 public class VolunteerController {
 
     final VolunteerMapper volunteerMapper;
+    final VolunteerActivityMapper volunteerActivityMapper;
+    VolunteerService volunteerService;
 
-    public VolunteerController(VolunteerMapper volunteerMapper) {
+    public VolunteerController(VolunteerMapper volunteerMapper, VolunteerActivityMapper volunteerActivityMapper, VolunteerService volunteerService) {
         this.volunteerMapper = volunteerMapper;
+        this.volunteerActivityMapper = volunteerActivityMapper;
+        this.volunteerService = volunteerService;
     }
 
     @RequestMapping("/volunteer/all")
@@ -29,6 +33,21 @@ public class VolunteerController {
         return Volunteers;
     }
 
+    @RequestMapping("/volunteer/activity/{id}")
+    public @ResponseBody
+    VolunteeringActivity getVolunteeringActivityById(@PathVariable("id") int volunteeringActivityId){
+        return volunteerActivityMapper.getVolunteerActivityById(volunteeringActivityId);
+    }
+
+    @RequestMapping(value = "/volunteer/activity/join/{volunteeringActivityId}/{userId}")
+    @ResponseBody BasicMessage joinVolunteeringActivity(@PathVariable("volunteeringActivityId") int volunteeringActivityId, @PathVariable("userId") int userId){
+        return volunteerService.joinVolunteeringActivity(volunteeringActivityId,userId);
+    }
+
+    @RequestMapping(value = "/volunteer/activity/dropout/{volunteeringActivityId}/{userId}")
+    @ResponseBody BasicMessage dropOutFromActivity(@PathVariable("volunteeringActivityId") int volunteeringActivityId, @PathVariable("userId") int userId){
+        return volunteerService.dropOutFromActivity(userId,volunteeringActivityId);
+    }
 
 
 }
