@@ -21,6 +21,8 @@ public class VolunteeringActivity {
     private Boolean isPrivate;
     private List<User> members;
     private String status;
+    private int anonymousMember;
+
 
     public Integer getVolunteeringActivityId() {
         return volunteeringActivityId;
@@ -28,6 +30,14 @@ public class VolunteeringActivity {
 
     public void setVolunteeringActivityId(Integer volunteeringActivityId) {
         this.volunteeringActivityId = volunteeringActivityId;
+    }
+
+    public int getAnonymousMember() {
+        return anonymousMember;
+    }
+
+    public void setAnonymousMember(int anonymousMember) {
+        this.anonymousMember = anonymousMember;
     }
 
     public Double getLatitude() {
