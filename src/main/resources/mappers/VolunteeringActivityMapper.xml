@@ -22,6 +22,13 @@
         <collection property="members" resultMap="me.inspiringbits.cleanscene.Mapper.UserMapper.simpleUser"></collection>
     </resultMap>
 
+    <select id="getAllVolunteerActivity" resultType="VolunteeringActivity">
+        select *
+        from volunteeringActivity
+        where volunteeringActivity.isPrivate=FALSE 
+    </select>
+
+
     <select id="getVolunteerActivityById" resultMap="volunteerActivityResult">
         select *
         from CLEANSCENE.volunteeringActivity
