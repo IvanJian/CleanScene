@@ -33,6 +33,15 @@ public class VolunteerController {
         return Volunteers;
     }
 
+    //return al vol activities
+    @RequestMapping("/volunteer/activity/all")
+    public @ResponseBody
+    List<VolunteeringActivity> getAllVolunteeringActivity() {
+        List<VolunteeringActivity> Volunteers = volunteerActivityMapper.getAllVolunteerActivity();
+        return Volunteers;
+    }
+    //create v activity
+
     @RequestMapping("/volunteer/activity/{id}")
     public @ResponseBody
     VolunteeringActivity getVolunteeringActivityById(@PathVariable("id") int volunteeringActivityId){
