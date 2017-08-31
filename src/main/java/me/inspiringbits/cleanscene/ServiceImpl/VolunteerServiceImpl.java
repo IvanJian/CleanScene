@@ -4,6 +4,7 @@ import me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper;
 import me.inspiringbits.cleanscene.Model.BasicMessage;
 import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
 import me.inspiringbits.cleanscene.Service.VolunteerService;
+import me.inspiringbits.cleanscene.Tools.DateTimeTool;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class VolunteerServiceImpl implements VolunteerService {
 
     final VolunteerActivityMapper volunteerActivityMapper;
+
 
     public VolunteerServiceImpl(VolunteerActivityMapper volunteerActivityMapper) {
         this.volunteerActivityMapper = volunteerActivityMapper;
@@ -29,17 +31,25 @@ public class VolunteerServiceImpl implements VolunteerService {
                 message.setCode(BasicMessage.ACTIVITY_CLOSED);
                 return message;
             }
-            //TODO:check the start date time of this activity
-            volunteerActivityMapper.joinVolunteering(userId,volunteeringActivityId);
+            //TODO:check the start date time of this activity (start date should be before after join date)
+            VolunteeringActivity vola = volunteerActivityMapper.getVolunteerActivityById(volunteeringActivityId);
+            if(DateTimeTool.compareDateTime(vola.getActivityDate(),vola.getFromTime()
+                    ,DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.AFTER)) {
+                volunteerActivityMapper.joinVolunteering(userId, volunteeringActivityId);
+                BasicMessage message = new BasicMessage();
+                message.setStatus(true);
+                message.setCode("200");
+                return message;
+            }
             BasicMessage message=new BasicMessage();
-            message.setStatus(true);
-            message.setCode("200");
+            message.setStatus(false);
+            message.setCode("444");
             return message;
         } catch (Exception e){
             BasicMessage message=new BasicMessage();
             message.setStatus(false);
             message.setCode(BasicMessage.JOIN_VOLUNTEERING_FAILED);
-            message.setContent("You are already the member of this activity.");
+            message.setContent("You are already a member of this activity.");
             return message;
         }
     }
@@ -67,6 +77,19 @@ public class VolunteerServiceImpl implements VolunteerService {
         /**
          * TODO: set create date and time; set the status to open
          */
+        try
+        {
+            volunteeringActivity.setCreatedDate(DateTimeTool.getCurrentDate());
+            volunteeringActivity.setCreatedTime(DateTimeTool.getCurrentTime());
+            volunteerActivityMapper.createVolunteerActivity(volunteeringActivity);
+        }catch (Exception e)
+        {
+            BasicMessage message=new BasicMessage();
+            message.setStatus(false);
+            message.setCode("444");
+            message.setContent("Failed Creating activity.");
+            return message;
+        }
         return null;
     }
 }
