@@ -74,15 +74,17 @@ public class VolunteerServiceImpl implements VolunteerService {
 
     @Override
     public BasicMessage createVolunteerActivity(VolunteeringActivity volunteeringActivity) {
-        /**
-         * TODO: set create date and time; set the status to open
-         */
         try
         {
             volunteeringActivity.setCreatedDate(DateTimeTool.getCurrentDate());
             volunteeringActivity.setCreatedTime(DateTimeTool.getCurrentTime());
             volunteeringActivity.setStatus(volunteeringActivity.STATUS_OPEN);
             volunteerActivityMapper.createVolunteerActivity(volunteeringActivity);
+            BasicMessage message=new BasicMessage();
+            message.setCode("200");
+            message.setStatus(true);
+            message.setContent(volunteeringActivity.getVolunteeringActivityId().toString());
+            return message;
         }catch (Exception e)
         {
             BasicMessage message=new BasicMessage();
@@ -91,6 +93,5 @@ public class VolunteerServiceImpl implements VolunteerService {
             message.setContent("Failed Creating activity.");
             return message;
         }
-        return null;
     }
 }
