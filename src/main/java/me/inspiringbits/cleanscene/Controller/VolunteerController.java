@@ -41,6 +41,10 @@ public class VolunteerController {
         return Volunteers;
     }
     //create v activity
+    @RequestMapping("/volunteer/activity/create")
+    public @ResponseBody BasicMessage createActivity(@RequestBody VolunteeringActivity volunteeringActivity){
+        return volunteerService.createVolunteerActivity(volunteeringActivity);
+    }
 
     @RequestMapping("/volunteer/activity/{id}")
     public @ResponseBody
