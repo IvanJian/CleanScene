@@ -31,7 +31,6 @@ public class VolunteerServiceImpl implements VolunteerService {
                 message.setCode(BasicMessage.ACTIVITY_CLOSED);
                 return message;
             }
-            //TODO:check the start date time of this activity (start date should be before after join date)
             VolunteeringActivity vola = volunteerActivityMapper.getVolunteerActivityById(volunteeringActivityId);
             if(DateTimeTool.compareDateTime(vola.getActivityDate(),vola.getFromTime()
                     ,DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.AFTER)) {
@@ -58,8 +57,11 @@ public class VolunteerServiceImpl implements VolunteerService {
     public BasicMessage dropOutFromActivity(int userId, int volunteeringActivityId) {
         try {
             volunteerActivityMapper.dropOutFromActivity(userId,volunteeringActivityId);
-            //TODO:if there is no member, set the state to close
-            BasicMessage message=new BasicMessage();
+            if (volunteerActivityMapper.getVolunteerActivityMembersCount(userId,volunteeringActivityId) == 0)
+            {
+                volunteerActivityMapper.closeVolunteeringActivity(volunteeringActivityId);
+            }
+            BasicMessage message = new BasicMessage();
             message.setStatus(true);
             message.setCode("200");
             return message;
@@ -67,7 +69,7 @@ public class VolunteerServiceImpl implements VolunteerService {
             BasicMessage message=new BasicMessage();
             message.setStatus(false);
             message.setCode(BasicMessage.DROP_OUT_FAILED);
-            message.setContent("You are not the member of this activity.");
+            message.setContent("You are not a member of this activity.");
             return message;
         }
     }
