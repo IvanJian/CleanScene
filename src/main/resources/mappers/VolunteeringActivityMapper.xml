@@ -25,7 +25,8 @@
     <select id="getAllVolunteerActivity" resultType="VolunteeringActivity">
         select *
         from volunteeringActivity
-        where volunteeringActivity.isPrivate=FALSE 
+        where volunteeringActivity.isPrivate=FALSE
+         and volunteeringActivity.status='open'
     </select>
 
 
