@@ -26,6 +26,7 @@
         select *
         from volunteeringActivity
         where volunteeringActivity.isPrivate=FALSE
+         and volunteeringActivity.status='open'
     </select>
 
 
