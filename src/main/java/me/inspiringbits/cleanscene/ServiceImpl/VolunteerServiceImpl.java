@@ -81,6 +81,7 @@ public class VolunteerServiceImpl implements VolunteerService {
         {
             volunteeringActivity.setCreatedDate(DateTimeTool.getCurrentDate());
             volunteeringActivity.setCreatedTime(DateTimeTool.getCurrentTime());
+            volunteeringActivity.setStatus(volunteeringActivity.STATUS_OPEN);
             volunteerActivityMapper.createVolunteerActivity(volunteeringActivity);
         }catch (Exception e)
         {
