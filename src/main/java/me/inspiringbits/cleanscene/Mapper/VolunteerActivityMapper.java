@@ -4,6 +4,8 @@ import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created by IvanJian on 2017/8/29.
  */
@@ -13,4 +15,5 @@ public interface VolunteerActivityMapper {
     void joinVolunteering(@Param("userId") int userId, @Param("volunteeringActivityId") int volunteeringActivityId);
     void dropOutFromActivity(@Param("userId") int userId, @Param("volunteeringActivityId") int volunteeringActivityId);
     void createVolunteerActivity(VolunteeringActivity volunteeringActivity);
+    List<VolunteeringActivity> getAllVolunteerActivity();
 }
