@@ -3,6 +3,7 @@ package me.inspiringbits.cleanscene.Controller;
 import me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper;
 import me.inspiringbits.cleanscene.Mapper.VolunteerMapper;
 import me.inspiringbits.cleanscene.Model.BasicMessage;
+import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Model.Volunteer;
 import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
 import me.inspiringbits.cleanscene.Service.VolunteerService;
@@ -33,7 +34,7 @@ public class VolunteerController {
         return Volunteers;
     }
 
-    //return al vol activities
+    //return all vol activities
     @RequestMapping("/volunteer/activity/all")
     public @ResponseBody
     List<VolunteeringActivity> getAllVolunteeringActivity() {
@@ -41,10 +42,13 @@ public class VolunteerController {
         return Volunteers;
     }
     //create v activity
-    @RequestMapping("/volunteer/activity/create")
-    public @ResponseBody BasicMessage createActivity(@RequestBody VolunteeringActivity volunteeringActivity){
+    @RequestMapping(value = "/volunteer/activity/create",method = RequestMethod.POST)
+    @ResponseBody
+    public BasicMessage createVolunteeringActivity(@RequestBody VolunteeringActivity volunteeringActivity)
+    {
         return volunteerService.createVolunteerActivity(volunteeringActivity);
     }
+
 
     @RequestMapping("/volunteer/activity/{id}")
     public @ResponseBody
@@ -57,10 +61,17 @@ public class VolunteerController {
         return volunteerService.joinVolunteeringActivity(volunteeringActivityId,userId);
     }
 
+    @RequestMapping(value = "/volunteer/activity/join/{volunteeringActivityId}")
+    @ResponseBody BasicMessage joinVolunteeringActivityAnonymous(@PathVariable("volunteeringActivityId") int volunteeringActivityId){
+        return volunteerService.joinVolunteeringActivityAnonymous(volunteeringActivityId);
+    }
+
     @RequestMapping(value = "/volunteer/activity/dropout/{volunteeringActivityId}/{userId}")
     @ResponseBody BasicMessage dropOutFromActivity(@PathVariable("volunteeringActivityId") int volunteeringActivityId, @PathVariable("userId") int userId){
         return volunteerService.dropOutFromActivity(userId,volunteeringActivityId);
     }
 
+
+    //Find the locations with more than 4 reports to recomend for a user (Return: V recom model)
 
 }

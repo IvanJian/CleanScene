@@ -10,4 +10,5 @@ public interface VolunteerService {
     abstract BasicMessage joinVolunteeringActivity(int volunteeringActivityId,int userId);
     abstract BasicMessage dropOutFromActivity(int userId, int volunteeringActivityId);
     abstract BasicMessage createVolunteerActivity(VolunteeringActivity volunteeringActivity);
+    abstract BasicMessage joinVolunteeringActivityAnonymous(int volunteeringActivityId);
 }

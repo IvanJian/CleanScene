@@ -30,6 +30,13 @@
     </select>
 
 
+    <select id="getVolunteerActivityMembersCount" resultType="Integer">
+        SELECT count(CLEANSCENE.VolunteeringMember.userId) as count
+        FROM CLEANSCENE.VolunteeringMember
+        where CLEANSCENE.VolunteeringMember.userId = #{userId}
+        and CLEANSCENE.VolunteeringMember.volunteeringActivityId = #{volunteeringActivityId};
+    </select>
+
     <select id="getVolunteerActivityById" resultMap="volunteerActivityResult">
         select *
         from CLEANSCENE.volunteeringActivity
@@ -77,8 +84,20 @@
             #{volunteeringActivityId});
     </insert>
 
+    <update id="joinVolunteeringjoinVolunteeringAnonymous">
+        update CLEANSCENE.volunteeringActivity
+        set anonymousMember = anonymousMember + 1
+        where volunteeringActivityId = #{volunteeringActivityId};
+    </update>
+
     <delete id="dropOutFromActivity">
         DELETE FROM `CLEANSCENE`.`VolunteeringMember`
         WHERE userId=#{userId} AND volunteeringActivityId=#{volunteeringActivityId}
     </delete>
+
+    <update id="closeVolunteeringActivity">
+        update CLEANSCENE.volunteeringActivity
+        set status = 'close'
+        where volunteeringActivityId = #{volunteeringActivityId};
+    </update>
 </mapper>
