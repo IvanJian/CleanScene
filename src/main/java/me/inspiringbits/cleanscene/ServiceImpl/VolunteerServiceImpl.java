@@ -53,6 +53,43 @@ public class VolunteerServiceImpl implements VolunteerService {
         }
     }
 
+
+    @Override
+    public BasicMessage joinVolunteeringActivityAnonymous(int volunteeringActivityId)
+    {
+        VolunteeringActivity volunteeringActivity=volunteerActivityMapper.getVolunteerActivityById(volunteeringActivityId);
+        if (volunteeringActivity.getStatus().equals(VolunteeringActivity.STATUS_CLOSE)){
+            BasicMessage message=new BasicMessage();
+            message.setStatus(false);
+            message.setContent("This activity is closed.");
+            message.setCode(BasicMessage.ACTIVITY_CLOSED);
+            return message;
+        }
+        try {
+            if (DateTimeTool.compareDateTime(volunteeringActivity.getActivityDate(), volunteeringActivity.getFromTime()
+                    , DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.AFTER))
+            {
+                volunteerActivityMapper.joinVolunteeringjoinVolunteeringAnonymous(volunteeringActivityId);
+                BasicMessage message = new BasicMessage();
+                message.setStatus(true);
+                message.setCode("200");
+                return message;
+            }
+            BasicMessage message=new BasicMessage();
+            message.setStatus(false);
+            message.setCode("444");
+            return message;
+        }catch (Exception e)
+        {
+            BasicMessage message=new BasicMessage();
+            message.setStatus(false);
+            message.setCode(BasicMessage.JOIN_VOLUNTEERING_FAILED);
+            message.setContent("You are already a member of this activity.");
+            return message;
+        }
+    }
+
+
     @Override
     public BasicMessage dropOutFromActivity(int userId, int volunteeringActivityId) {
         try {

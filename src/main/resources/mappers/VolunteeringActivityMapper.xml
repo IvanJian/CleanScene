@@ -84,6 +84,12 @@
             #{volunteeringActivityId});
     </insert>
 
+    <update id="joinVolunteeringjoinVolunteeringAnonymous">
+        update CLEANSCENE.volunteeringActivity
+        set anonymousMember = anonymousMember + 1
+        where volunteeringActivityId = #{volunteeringActivityId};
+    </update>
+
     <delete id="dropOutFromActivity">
         DELETE FROM `CLEANSCENE`.`VolunteeringMember`
         WHERE userId=#{userId} AND volunteeringActivityId=#{volunteeringActivityId}
