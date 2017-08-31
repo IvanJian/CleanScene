@@ -25,9 +25,16 @@
     <select id="getAllVolunteerActivity" resultType="VolunteeringActivity">
         select *
         from volunteeringActivity
-        where volunteeringActivity.isPrivate=FALSE 
+        where volunteeringActivity.isPrivate=FALSE
     </select>
 
+
+    <select id="getVolunteerActivityMembersCount" resultType="Integer">
+        SELECT count(CLEANSCENE.VolunteeringMember.userId) as count
+        FROM CLEANSCENE.VolunteeringMember
+        where CLEANSCENE.VolunteeringMember.userId = #{userId}
+        and CLEANSCENE.VolunteeringMember.volunteeringActivityId = #{volunteeringActivityId};
+    </select>
 
     <select id="getVolunteerActivityById" resultMap="volunteerActivityResult">
         select *
@@ -80,4 +87,10 @@
         DELETE FROM `CLEANSCENE`.`VolunteeringMember`
         WHERE userId=#{userId} AND volunteeringActivityId=#{volunteeringActivityId}
     </delete>
+
+    <update id="closeVolunteeringActivity">
+        update CLEANSCENE.volunteeringActivity
+        set status = 'close'
+        where volunteeringActivityId = #{volunteeringActivityId};
+    </update>
 </mapper>
