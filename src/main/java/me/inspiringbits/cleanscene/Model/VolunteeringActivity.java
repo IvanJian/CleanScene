@@ -24,6 +24,7 @@ public class VolunteeringActivity {
     private int anonymousMember;
 
 
+
     public Integer getVolunteeringActivityId() {
         return volunteeringActivityId;
     }
@@ -32,11 +33,11 @@ public class VolunteeringActivity {
         this.volunteeringActivityId = volunteeringActivityId;
     }
 
-    public int getAnonymousMember() {
+    public Integer getAnonymousMember() {
         return anonymousMember;
     }
 
-    public void setAnonymousMember(int anonymousMember) {
+    public void setAnonymousMember(Integer anonymousMember) {
         this.anonymousMember = anonymousMember;
     }
 
@@ -102,6 +103,14 @@ public class VolunteeringActivity {
 
     public void setToTime(String toTime) {
         this.toTime = toTime;
+    }
+
+    public Boolean getIsPrivate() {
+        return isPrivate;
+    }
+
+    public void setIsPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     public Boolean getPrivate() {
