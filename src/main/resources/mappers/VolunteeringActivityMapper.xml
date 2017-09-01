@@ -100,4 +100,17 @@
         set status = 'close'
         where volunteeringActivityId = #{volunteeringActivityId};
     </update>
+
+    <select id="getAllVolunteerActivityForUser" resultType="VolunteeringActivity">
+        select CLEANSCENE.volunteeringActivity.volunteeringActivityId, CLEANSCENE.volunteeringActivity.latitude
+        , CLEANSCENE.volunteeringActivity.longitude, CLEANSCENE.volunteeringActivity.createdDate,
+        CLEANSCENE.volunteeringActivity.createdTime,CLEANSCENE.volunteeringActivity.address,
+        CLEANSCENE.volunteeringActivity.activityDate,CLEANSCENE.volunteeringActivity.fromTime,
+        CLEANSCENE.volunteeringActivity.toTime, CLEANSCENE.volunteeringActivity.isPrivate,
+        CLEANSCENE.volunteeringActivity.status,CLEANSCENE.volunteeringActivity.anonymousMember
+        from CLEANSCENE.volunteeringActivity, CLEANSCENE.VolunteeringMember
+        where CLEANSCENE.VolunteeringMember.userId = #{userId} and CLEANSCENE.VolunteeringMember.volunteeringActivityId
+        = CLEANSCENE.volunteeringActivity.volunteeringActivityId;
+    </select>
+
 </mapper>

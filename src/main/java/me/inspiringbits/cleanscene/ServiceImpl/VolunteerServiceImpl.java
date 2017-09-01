@@ -7,6 +7,8 @@ import me.inspiringbits.cleanscene.Service.VolunteerService;
 import me.inspiringbits.cleanscene.Tools.DateTimeTool;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by IvanJian on 2017/8/29.
  */
@@ -132,5 +134,12 @@ public class VolunteerServiceImpl implements VolunteerService {
             message.setContent("Failed Creating activity.");
             return message;
         }
+    }
+
+    @Override
+    public List<VolunteeringActivity> getAllVolunteerActivityForUser(int userId) {
+
+        return volunteerActivityMapper.getAllVolunteerActivityForUser(userId);
+
     }
 }

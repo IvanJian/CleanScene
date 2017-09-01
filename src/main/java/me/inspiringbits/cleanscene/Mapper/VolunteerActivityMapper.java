@@ -20,5 +20,5 @@ public interface VolunteerActivityMapper {
     int getVolunteerActivityMembersCount(@Param("userId") int userId,
                                          @Param("volunteeringActivityId") int volunteeringActivityId);
     void closeVolunteeringActivity(@Param("volunteeringActivityId") int volunteeringActivityId);
-
+    List<VolunteeringActivity> getAllVolunteerActivityForUser(@Param("userId") int userId);
 }

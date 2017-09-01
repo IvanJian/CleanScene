@@ -41,6 +41,12 @@ public class VolunteerController {
         List<VolunteeringActivity> Volunteers = volunteerActivityMapper.getAllVolunteerActivity();
         return Volunteers;
     }
+    //return all vol activities for a specific user
+    @RequestMapping("/volunteer/activity/user/{id}")
+    public @ResponseBody
+    List<VolunteeringActivity> getAllVolunteerActivityForUser(@PathVariable("id") int userId){
+        return volunteerService.getAllVolunteerActivityForUser(userId);
+    }
     //create v activity
     @RequestMapping(value = "/volunteer/activity/create",method = RequestMethod.POST)
     @ResponseBody
