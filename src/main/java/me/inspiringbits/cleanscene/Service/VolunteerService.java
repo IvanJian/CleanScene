@@ -2,6 +2,7 @@ package me.inspiringbits.cleanscene.Service;
 
 import me.inspiringbits.cleanscene.Model.BasicMessage;
 import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
+import me.inspiringbits.cleanscene.Model.VolunteeringRecommendation;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface VolunteerService {
     abstract BasicMessage createVolunteerActivity(VolunteeringActivity volunteeringActivity);
     abstract BasicMessage joinVolunteeringActivityAnonymous(int volunteeringActivityId);
     abstract List<VolunteeringActivity> getAllVolunteerActivityForUser(int userId);
+    abstract VolunteeringRecommendation getHighReportLocation();
 }
