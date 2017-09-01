@@ -114,4 +114,10 @@
         = CLEANSCENE.volunteeringActivity.volunteeringActivityId;
     </select>
 
+    <select id="getHighReportLocation" resultType="String">
+        SELECT locationName
+        FROM CLEANSCENE.report
+        group by locationName
+        HAVING COUNT(*) > 4;
+    </select>
 </mapper>

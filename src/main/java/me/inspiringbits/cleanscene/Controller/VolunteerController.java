@@ -2,10 +2,7 @@ package me.inspiringbits.cleanscene.Controller;
 
 import me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper;
 import me.inspiringbits.cleanscene.Mapper.VolunteerMapper;
-import me.inspiringbits.cleanscene.Model.BasicMessage;
-import me.inspiringbits.cleanscene.Model.Report;
-import me.inspiringbits.cleanscene.Model.Volunteer;
-import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
+import me.inspiringbits.cleanscene.Model.*;
 import me.inspiringbits.cleanscene.Service.VolunteerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,5 +76,10 @@ public class VolunteerController {
 
 
     //Find the locations with more than 4 reports to recomend for a user (Return: V recom model)
+    @RequestMapping("/volunteer/activity/recommend")
+    public @ResponseBody
+    VolunteeringRecommendation getVolunteerRecommendation() {
+        return volunteerService.getHighReportLocation();
+    }
 
 }

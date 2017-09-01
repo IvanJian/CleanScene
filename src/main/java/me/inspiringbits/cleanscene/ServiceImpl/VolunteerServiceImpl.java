@@ -1,8 +1,11 @@
 package me.inspiringbits.cleanscene.ServiceImpl;
 
+import me.inspiringbits.cleanscene.Mapper.LocationMapper;
 import me.inspiringbits.cleanscene.Mapper.VolunteerActivityMapper;
 import me.inspiringbits.cleanscene.Model.BasicMessage;
+import me.inspiringbits.cleanscene.Model.Location;
 import me.inspiringbits.cleanscene.Model.VolunteeringActivity;
+import me.inspiringbits.cleanscene.Model.VolunteeringRecommendation;
 import me.inspiringbits.cleanscene.Service.VolunteerService;
 import me.inspiringbits.cleanscene.Tools.DateTimeTool;
 import org.springframework.stereotype.Component;
@@ -16,10 +19,11 @@ import java.util.List;
 public class VolunteerServiceImpl implements VolunteerService {
 
     final VolunteerActivityMapper volunteerActivityMapper;
+    final LocationMapper locationMapper;
 
-
-    public VolunteerServiceImpl(VolunteerActivityMapper volunteerActivityMapper) {
+    public VolunteerServiceImpl(VolunteerActivityMapper volunteerActivityMapper, LocationMapper locationMapper) {
         this.volunteerActivityMapper = volunteerActivityMapper;
+        this.locationMapper = locationMapper;
     }
 
     @Override
@@ -141,5 +145,34 @@ public class VolunteerServiceImpl implements VolunteerService {
 
         return volunteerActivityMapper.getAllVolunteerActivityForUser(userId);
 
+    }
+
+    @Override
+    public VolunteeringRecommendation getHighReportLocation(){
+        List<String> highestReport = volunteerActivityMapper.getHighReportLocation();
+        VolunteeringRecommendation volunteeringRecommendation = new VolunteeringRecommendation();
+        if (highestReport.size() == 0) {
+            volunteeringRecommendation.setTitle(null);
+            return volunteeringRecommendation;
+        }
+        if (highestReport.size() == 1){
+                if (highestReport.get(0).equals("N/A"))
+                {
+                    volunteeringRecommendation.setTitle(null);
+                }
+        }
+        for (String hir:highestReport)
+        {
+            if (!hir.equals("N/A"))
+            {
+                volunteeringRecommendation.setTitle("There are numerous reports in " + hir +" would you like" +
+                        " to create a volunteering activity there? ");
+                Location location = locationMapper.getLocationById(hir);
+                volunteeringRecommendation.setLatitude(location.getLat());
+                volunteeringRecommendation.setLongitude(location.getLong());
+            }
+
+        }
+        return volunteeringRecommendation;
     }
 }

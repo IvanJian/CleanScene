@@ -7,5 +7,10 @@
     <select id="getLocations" resultType="Location">
         select * from locations
     </select>
+    <select id="getLocationById" resultType="Location">
+        select *
+        from locations
+        where lName = #{lName}
+    </select>
 
 </mapper>
