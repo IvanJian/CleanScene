@@ -33,4 +33,16 @@
         SELECT * FROM user
         WHERE facebookId=#{facebookId}
     </select>
+
+    <select id="getUserReports" resultType="Integer">
+        select count(userId) as count
+        from CLEANSCENE.report
+        where userId = #{userId};
+    </select>
+
+    <select id="getUserActivities" resultType="Integer">
+        select count(userId) as count
+        from CLEANSCENE.VolunteeringMember
+        where userId = #{userId};
+    </select>
 </mapper>
