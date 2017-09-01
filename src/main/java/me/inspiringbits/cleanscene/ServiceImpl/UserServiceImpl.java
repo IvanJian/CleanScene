@@ -40,4 +40,34 @@ public class UserServiceImpl implements UserService{
         basicMessage.setContent(user.getUserId().toString());
         return basicMessage;
     }
+
+    @Override
+    public BasicMessage getUserReports(int userId) {
+    try{
+        basicMessage.setStatus(true);
+        basicMessage.setCode(BasicMessage.SUCCESS);
+        basicMessage.setContent(Integer.toString(userMapper.getUserReports(userId)));
+    }catch (Exception e){
+        basicMessage.setStatus(false);
+        basicMessage.setCode("444");
+        basicMessage.setContent("Error while fetching user reports");
+        return basicMessage;
+    }
+        return basicMessage;
+    }
+
+    @Override
+    public BasicMessage getUserActivities(int userId) {
+        try{
+            basicMessage.setStatus(true);
+            basicMessage.setCode(BasicMessage.SUCCESS);
+            basicMessage.setContent(Integer.toString(userMapper.getUserActivities(userId)));
+        }catch (Exception e){
+            basicMessage.setStatus(false);
+            basicMessage.setCode("444");
+            basicMessage.setContent("Error while fetching user activities");
+            return basicMessage;
+        }
+        return basicMessage;
+    }
 }

@@ -29,10 +29,16 @@ public class UserController {
         return userMapper.selectByUserId(id);
     }
 
+    @RequestMapping("/user/reports/{id}")
+    public @ResponseBody
+    BasicMessage getUserReports(@PathVariable Integer id) {
+        return userService.getUserReports(id);
+    }
 
-    @RequestMapping("hello")
-    public String hello(){
-        return "Hello";
+    @RequestMapping("/user/activities/{id}")
+    public @ResponseBody
+    BasicMessage getUserActivities(@PathVariable Integer id) {
+        return userService.getUserActivities(id);
     }
 
     @RequestMapping(value = "/user/create", method = RequestMethod.POST)

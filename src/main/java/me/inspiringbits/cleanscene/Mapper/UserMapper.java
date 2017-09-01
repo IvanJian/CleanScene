@@ -10,4 +10,6 @@ public interface UserMapper {
     User selectByUserId (Integer userId);
     void createUser(User user);
     List<User> findByFacebookId(String facebookId);
+    int getUserReports(int userId);
+    int getUserActivities(int userId);
 }

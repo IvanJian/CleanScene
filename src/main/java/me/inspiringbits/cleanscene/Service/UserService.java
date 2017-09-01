@@ -8,4 +8,6 @@ import me.inspiringbits.cleanscene.Model.User;
  */
 public interface UserService {
     abstract BasicMessage createUser(User user);
+    abstract BasicMessage getUserReports(int userId);
+    abstract BasicMessage getUserActivities(int userId);
 }
