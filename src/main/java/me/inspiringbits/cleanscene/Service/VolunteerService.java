@@ -16,4 +16,5 @@ public interface VolunteerService {
     abstract BasicMessage joinVolunteeringActivityAnonymous(int volunteeringActivityId);
     abstract List<VolunteeringActivity> getAllVolunteerActivityForUser(int userId);
     abstract VolunteeringRecommendation getHighReportLocation();
+    abstract void checkVolunteeringActivityDateTime();
 }

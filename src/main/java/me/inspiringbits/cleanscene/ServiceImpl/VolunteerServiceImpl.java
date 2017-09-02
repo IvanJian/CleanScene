@@ -175,4 +175,18 @@ public class VolunteerServiceImpl implements VolunteerService {
         }
         return volunteeringRecommendation;
     }
+    @Override
+    public void checkVolunteeringActivityDateTime(){
+        List<VolunteeringActivity> volunteeringActivities = volunteerActivityMapper.getAllVolunteerActivity();
+        try {
+            for (VolunteeringActivity vola : volunteeringActivities) {
+                if (DateTimeTool.compareDateTime(vola.getActivityDate(), vola.getFromTime()
+                        , DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.BEFORE)) {
+                    volunteerActivityMapper.closeVolunteeringActivity(vola.getVolunteeringActivityId());
+                }
+            }
+        }catch (Exception e){
+            //Error Handling.
+        }
+    }
 }
