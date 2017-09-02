@@ -16,6 +16,7 @@
         <result property="toTime" column="toTime" />
         <result property="isPrivate" column="isPrivate" />
         <result property="status" column="status" />
+        <result property="anonymousMember" column="anonymousMember"/>
     </resultMap>
 
     <resultMap id="volunteerActivityResult" type="VolunteeringActivity" extends="simpleVolunteerActivityResult">
