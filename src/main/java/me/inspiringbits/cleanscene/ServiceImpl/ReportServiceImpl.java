@@ -72,6 +72,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public BasicMessage saveReport(Report report) {
+        System.out.println(report.getReportId()+" "+report.getUserId());
         List<Location> locations = locationMapper.getLocations();
         if(!validate(report)){
             basicMessage.setCode("444");
@@ -118,7 +119,7 @@ public class ReportServiceImpl implements ReportService {
         try {
             reportMapper.insertReport(report, report.getRating(), report.getSource(), report.getType(),
                     report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
-                    report.isHasMoreDetail(), report.getDeviceId(), null, report.getDate(), report.getTime());
+                    report.isHasMoreDetail(), report.getDeviceId(), report.getUserId(), report.getDate(), report.getTime());
             basicMessage.setCode("200");
             basicMessage.setContent(report.getReportId().toString());
             basicMessage.setStatus(true);

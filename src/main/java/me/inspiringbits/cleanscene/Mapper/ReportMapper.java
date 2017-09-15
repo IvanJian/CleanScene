@@ -1,5 +1,6 @@
 package me.inspiringbits.cleanscene.Mapper;
 
+import me.inspiringbits.cleanscene.Model.NumOfReportResult;
 import me.inspiringbits.cleanscene.Model.Report;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,7 @@ public interface ReportMapper {
                  @Param("locationName") String locationName, @Param("hasMore") boolean hasMore,
                  @Param("deviceId") String deviceId, @Param("userId") Integer userId,
                  @Param("date") String date, @Param("time") String time);
+
+    List<NumOfReportResult> numOfReportInPostcode();
 }
 

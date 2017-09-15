@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.inspiringbits.cleanscene.Mapper.FeedbackMapper">
+    <insert id="createFeedback">
+        INSERT INTO `CLEANSCENE`.`feedback`
+        (`userId`,
+        `reportId`,
+        `date`,
+        `content`)
+        VALUES
+        (#{feedbackId.userId},
+        #{feedbackId.reportId},
+        #{date},
+        #{content});
+    </insert>
+</mapper>

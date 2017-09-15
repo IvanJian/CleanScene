@@ -19,7 +19,11 @@
     <insert id="insertReport" parameterType="Report" useGeneratedKeys="true" keyProperty="report.reportId" keyColumn="reportId">
         Insert INTO report (rating, source,  type, latitude, longitude, description, photo, locationName, hasMoreDetail, deviceId, userId, date, time) VALUES ( #{rating}, #{source},  #{type},
         #{lat}, #{longit}, #{description}, #{photo},
-        #{locationName}, #{hasMore}, #{deviceId}, null,
+        #{locationName}, #{hasMore}, #{deviceId}, #{userId},
         #{date}, #{time})
     </insert>
+
+    <select id="numOfReportInPostcode" resultType="NumOfReportResult">
+        SELECT postcode, count(postcode) as num FROM CLEANSCENE.report group by postcode;
+    </select>
 </mapper>

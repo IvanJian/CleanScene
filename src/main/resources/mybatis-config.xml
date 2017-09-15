@@ -12,5 +12,6 @@
         <mapper resource="mappers/LocationMapper.xml"/>
         <mapper resource="mappers/VolunteerMapper.xml"/>
         <mapper resource="mappers/VolunteeringActivityMapper.xml"></mapper>
+        <mapper resource="mappers/FeedbackMapper.xml"></mapper>
     </mappers>
 </configuration>

@@ -38,18 +38,18 @@ public class VolunteerServiceImpl implements VolunteerService {
                 return message;
             }
             VolunteeringActivity vola = volunteerActivityMapper.getVolunteerActivityById(volunteeringActivityId);
-            if(DateTimeTool.compareDateTime(vola.getActivityDate(),vola.getFromTime()
-                    ,DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.AFTER)) {
-                volunteerActivityMapper.joinVolunteering(userId, volunteeringActivityId);
-                BasicMessage message = new BasicMessage();
-                message.setStatus(true);
-                message.setCode("200");
-                return message;
-            }
-            BasicMessage message=new BasicMessage();
+            /*if(DateTimeTool.compareDateTime(vola.getActivityDate(),vola.getFromTime(),DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.BEFORE)) {
+
+            }*/
+            volunteerActivityMapper.joinVolunteering(userId, volunteeringActivityId);
+            BasicMessage message = new BasicMessage();
+            message.setStatus(true);
+            message.setCode("200");
+            return message;
+            /*BasicMessage message=new BasicMessage();
             message.setStatus(false);
             message.setCode("444");
-            return message;
+            return message;*/
         } catch (Exception e){
             BasicMessage message=new BasicMessage();
             message.setStatus(false);
@@ -72,18 +72,19 @@ public class VolunteerServiceImpl implements VolunteerService {
             return message;
         }
         try {
-            if (DateTimeTool.compareDateTime(volunteeringActivity.getActivityDate(), volunteeringActivity.getFromTime()
-                    , DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.AFTER))
+            /*if (DateTimeTool.compareDateTime(volunteeringActivity.getActivityDate(), volunteeringActivity.getFromTime()
+                    , DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.BEFORE))
             {
-                volunteerActivityMapper.joinVolunteeringjoinVolunteeringAnonymous(volunteeringActivityId);
-                BasicMessage message = new BasicMessage();
-                message.setStatus(true);
-                message.setCode("200");
-                return message;
+
             }
             BasicMessage message=new BasicMessage();
             message.setStatus(false);
             message.setCode("444");
+            return message;*/
+            volunteerActivityMapper.joinVolunteeringjoinVolunteeringAnonymous(volunteeringActivityId);
+            BasicMessage message = new BasicMessage();
+            message.setStatus(true);
+            message.setCode("200");
             return message;
         }catch (Exception e)
         {
@@ -100,7 +101,7 @@ public class VolunteerServiceImpl implements VolunteerService {
     public BasicMessage dropOutFromActivity(int userId, int volunteeringActivityId) {
         try {
             volunteerActivityMapper.dropOutFromActivity(userId,volunteeringActivityId);
-            if (volunteerActivityMapper.getVolunteerActivityMembersCount(userId,volunteeringActivityId) == 0)
+            if (volunteerActivityMapper.getVolunteerActivityMembersCount(volunteeringActivityId) == 0)
             {
                 volunteerActivityMapper.closeVolunteeringActivity(volunteeringActivityId);
             }
@@ -174,5 +175,19 @@ public class VolunteerServiceImpl implements VolunteerService {
 
         }
         return volunteeringRecommendation;
+    }
+
+    @Override
+    public void checkVolunteeringActivityDateTime() {
+        List<VolunteeringActivity> volunteeringActivities = volunteerActivityMapper.getAllVolunteerActivity();
+        try {
+            for (VolunteeringActivity vola : volunteeringActivities) {
+                if (DateTimeTool.compareDateTime(vola.getActivityDate(), vola.getFromTime()
+                        , DateTimeTool.getCurrentDate(), DateTimeTool.getCurrentTime()).equals(DateTimeTool.BEFORE)) {
+                    volunteerActivityMapper.closeVolunteeringActivity(vola.getVolunteeringActivityId());
+                }
+            }
+        }catch (Exception e){
+        }
     }
 }

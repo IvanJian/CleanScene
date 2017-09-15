@@ -17,8 +17,7 @@ public interface VolunteerActivityMapper {
     void dropOutFromActivity(@Param("userId") int userId, @Param("volunteeringActivityId") int volunteeringActivityId);
     void createVolunteerActivity(VolunteeringActivity volunteeringActivity);
     List<VolunteeringActivity> getAllVolunteerActivity();
-    int getVolunteerActivityMembersCount(@Param("userId") int userId,
-                                         @Param("volunteeringActivityId") int volunteeringActivityId);
+    int getVolunteerActivityMembersCount(@Param("volunteeringActivityId") int volunteeringActivityId);
     void closeVolunteeringActivity(@Param("volunteeringActivityId") int volunteeringActivityId);
     List<VolunteeringActivity> getAllVolunteerActivityForUser(@Param("userId") int userId);
     List<String> getHighReportLocation();

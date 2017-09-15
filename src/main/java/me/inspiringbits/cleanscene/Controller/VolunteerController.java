@@ -12,6 +12,7 @@ import java.util.List;
  * Created by Abdulkareem on 2017/8/9.
  */
 @RestController
+@CrossOrigin
 public class VolunteerController {
 
     final VolunteerMapper volunteerMapper;

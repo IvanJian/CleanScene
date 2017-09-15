@@ -1,5 +1,7 @@
 package me.inspiringbits.cleanscene.Model;
 
+import java.util.List;
+
 /**
  * Created by Abdulkareem on 2017/8/7.
  */
@@ -21,6 +23,36 @@ public class Report
     private String status;
     private String closeDate;
     private String closeTime;
+    private int userId;
+    private String postcode;
+    private List<Feedback> feedbacks;
+    public static String STATUS_RESOLVED = "Resolved";
+    public static String STATUS_UNRESOLVED = "Unresolved";
+    public static String STATUS_CLOSED = "Closed";
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getStatus() {
         return status;

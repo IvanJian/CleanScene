@@ -3,6 +3,7 @@ package me.inspiringbits.cleanscene.Controller;
 import me.inspiringbits.cleanscene.Mapper.ReportMapper;
 import me.inspiringbits.cleanscene.Mapper.UserMapper;
 import me.inspiringbits.cleanscene.Model.BasicMessage;
+import me.inspiringbits.cleanscene.Model.NumOfReportResult;
 import me.inspiringbits.cleanscene.Model.Report;
 import me.inspiringbits.cleanscene.Model.User;
 import me.inspiringbits.cleanscene.Service.ReportService;
@@ -21,6 +22,7 @@ import java.util.TimeZone;
  * Created by Abdulkareem on 2017/8/9.
  */
 @RestController
+@CrossOrigin
 public class ReportController {
 
     final ReportMapper reportMapper;
@@ -53,5 +55,8 @@ public class ReportController {
         return reportService.saveReport(report);
     }
 
-
+    @RequestMapping(value = "/report/num/postcode")
+    public List<NumOfReportResult> getReportNumByPostcode(){
+        return reportMapper.numOfReportInPostcode();
+    }
 }

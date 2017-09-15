@@ -35,13 +35,13 @@
     </select>
 
     <select id="getUserReports" resultType="Integer">
-        select count(userId) as count
+        select num(userId) as num
         from CLEANSCENE.report
         where userId = #{userId};
     </select>
 
     <select id="getUserActivities" resultType="Integer">
-        select count(userId) as count
+        select num(userId) as num
         from CLEANSCENE.VolunteeringMember
         where userId = #{userId};
     </select>
