@@ -176,9 +176,8 @@ public class VolunteerServiceImpl implements VolunteerService {
         }
         return volunteeringRecommendation;
     }
-
     @Override
-    public void checkVolunteeringActivityDateTime() {
+    public void checkVolunteeringActivityDateTime(){
         List<VolunteeringActivity> volunteeringActivities = volunteerActivityMapper.getAllVolunteerActivity();
         try {
             for (VolunteeringActivity vola : volunteeringActivities) {
@@ -188,6 +187,7 @@ public class VolunteerServiceImpl implements VolunteerService {
                 }
             }
         }catch (Exception e){
+            //Error Handling.
         }
     }
 }
