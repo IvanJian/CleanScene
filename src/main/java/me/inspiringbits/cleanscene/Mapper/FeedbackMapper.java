@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface FeedbackMapper {
     void createFeedback(Feedback feedback);
-    Integer getFeedbackCount(@Param("reportId") Integer reportId);
     void changeReportStatus(@Param("reportId") Integer reportId, @Param("status") String status);
+    Integer getFeedbackCount(@Param("reportId") Integer reportId, @Param("content") String content);
 }

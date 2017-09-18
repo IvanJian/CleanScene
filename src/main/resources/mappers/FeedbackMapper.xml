@@ -15,4 +15,18 @@
         #{date},
         #{content});
     </insert>
+
+    <update id="changeReportStatus">
+        UPDATE `CLEANSCENE`.`report`
+        SET
+        `status` = #{status}
+        WHERE `reportId` = #{reportId};
+    </update>
+
+    <select id="getFeedbackCount" resultType="Integer">
+        SELECT
+          count(`feedback`.`content`) AS positive
+        FROM `CLEANSCENE`.`feedback`
+        WHERE reportId = #{reportId} AND content = #{content};
+    </select>
 </mapper>

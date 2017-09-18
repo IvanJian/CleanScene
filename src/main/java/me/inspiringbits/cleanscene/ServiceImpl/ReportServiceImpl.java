@@ -1,25 +1,21 @@
 package me.inspiringbits.cleanscene.ServiceImpl;
 
+import me.inspiringbits.cleanscene.Mapper.FeedbackMapper;
 import me.inspiringbits.cleanscene.Mapper.LocationMapper;
 import me.inspiringbits.cleanscene.Mapper.ReportMapper;
 import me.inspiringbits.cleanscene.Mapper.UserMapper;
-import me.inspiringbits.cleanscene.Model.BasicMessage;
-import me.inspiringbits.cleanscene.Model.Location;
-import me.inspiringbits.cleanscene.Model.Report;
+import me.inspiringbits.cleanscene.Model.*;
 import me.inspiringbits.cleanscene.Service.ReportService;
 import org.springframework.stereotype.Component;
-import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.math.*;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by IvanJian on 2017/8/16.
@@ -30,14 +26,16 @@ public class ReportServiceImpl implements ReportService {
     final ReportMapper reportMapper;
     final UserMapper userMapper;
     final LocationMapper locationMapper;
+    final FeedbackMapper feedbackMapper;
     BasicMessage basicMessage = new BasicMessage();
 
 
 
-    public ReportServiceImpl(ReportMapper reportMapper, UserMapper userMapper, LocationMapper locationMapper) {
+    public ReportServiceImpl(ReportMapper reportMapper, UserMapper userMapper, LocationMapper locationMapper, FeedbackMapper feedbackMapper) {
         this.reportMapper = reportMapper;
         this.userMapper = userMapper;
         this.locationMapper = locationMapper;
+        this.feedbackMapper = feedbackMapper;
     }
 
 
@@ -119,7 +117,7 @@ public class ReportServiceImpl implements ReportService {
         try {
             reportMapper.insertReport(report, report.getRating(), report.getSource(), report.getType(),
                     report.getLatitude(), report.getLongitude(), report.getDescription(), report.getPhoto(), report.getLocationName(),
-                    report.isHasMoreDetail(), report.getDeviceId(), report.getUserId(), report.getDate(), report.getTime());
+                    report.isHasMoreDetail(), report.getDeviceId(), report.getUserId(), report.getDate(), report.getTime(),report.getStatus(),report.getPostcode());
             basicMessage.setCode("200");
             basicMessage.setContent(report.getReportId().toString());
             basicMessage.setStatus(true);
@@ -132,6 +130,37 @@ public class ReportServiceImpl implements ReportService {
         }
         return basicMessage;
 
+    }
+
+    @Override
+    public Boolean checkFeedbackId(FeedbackId feedbackId) {
+
+        return null;
+    }
+
+    @Override
+    public Report getById(Integer reportId) {
+        return reportMapper.selectById(reportId);
+    }
+
+    @Override
+    public void createFeedback(Feedback feedback) {
+        feedbackMapper.createFeedback(feedback);
+        Integer positive = getFeedbackCount(feedback.getFeedbackId().getReportId(),Feedback.CONTENT_POSITIVE);
+        Integer negative = getFeedbackCount(feedback.getFeedbackId().getReportId(),Feedback.CONTENT_NEGATIVE);
+        if (positive - negative >=3){
+            changeReportStatus(feedback.getFeedbackId().getReportId(),Report.STATUS_RESOLVED);
+        }
+    }
+
+    @Override
+    public void changeReportStatus(Integer reportId, String status) {
+        feedbackMapper.changeReportStatus(reportId,status);
+    }
+
+    @Override
+    public Integer getFeedbackCount(Integer reportId, String content) {
+        return feedbackMapper.getFeedbackCount(reportId,content);
     }
 
     private boolean validate(Report report) {

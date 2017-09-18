@@ -110,6 +110,7 @@ public class VolunteerServiceImpl implements VolunteerService {
             message.setCode("200");
             return message;
         } catch (Exception e){
+            e.printStackTrace();
             BasicMessage message=new BasicMessage();
             message.setStatus(false);
             message.setCode(BasicMessage.DROP_OUT_FAILED);

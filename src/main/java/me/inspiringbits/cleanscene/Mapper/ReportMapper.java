@@ -26,7 +26,7 @@ public interface ReportMapper {
                  @Param("description") String description, @Param("photo") String photo,
                  @Param("locationName") String locationName, @Param("hasMore") boolean hasMore,
                  @Param("deviceId") String deviceId, @Param("userId") Integer userId,
-                 @Param("date") String date, @Param("time") String time);
+                 @Param("date") String date, @Param("time") String time,@Param("status")String status,@Param("postcode") String postcode);
 
     List<NumOfReportResult> numOfReportInPostcode();
 }

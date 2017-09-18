@@ -32,7 +32,7 @@
 
 
     <select id="getVolunteerActivityMembersCount" resultType="Integer">
-        SELECT num(CLEANSCENE.VolunteeringMember.volunteeringActivityId) as num
+        SELECT count(CLEANSCENE.VolunteeringMember.volunteeringActivityId) as num
         FROM CLEANSCENE.VolunteeringMember
         where CLEANSCENE.VolunteeringMember.volunteeringActivityId = #{volunteeringActivityId};
     </select>

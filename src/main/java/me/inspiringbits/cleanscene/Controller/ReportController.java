@@ -52,6 +52,7 @@ public class ReportController {
     @RequestMapping(value = "/report/create",method = RequestMethod.POST)
     @ResponseBody
     public BasicMessage createReport(@RequestBody Report report){
+        report.setStatus(Report.STATUS_UNRESOLVED);
         return reportService.saveReport(report);
     }
 
